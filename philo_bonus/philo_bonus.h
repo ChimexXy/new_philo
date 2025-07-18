@@ -7,29 +7,32 @@
 #include <sys/time.h>
 #include <semaphore.h>
 
-typedef struct s_data
-{
-	int		nb_philo;
-	int		time_die;
-	int		time_eat;
-	int		time_sleep;
-	int		opt_arg;
-	long long	start_time;
-
-	sem_t	*sem_forks;
-	sem_t	*sem_print;
-	sem_t	*sem_dead;
-	int		*death_flag;
-} t_data;
+typedef struct s_data t_data;
 
 typedef struct s_philo
 {
-	int		id;
-	pid_t	pid;
+	int			id;
+	int			meals_eaten;
 	long long	last_meal;
-	int		meals_eaten;
-	t_data	*data;
-} t_philo;
+	pid_t		pid;
+	t_data		*data;
+}	t_philo;
+
+typedef struct s_data
+{
+	int				nb_philo;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				opt_arg;
+	long long		start_time;
+	int				stop;
+
+	sem_t			*forks;
+	sem_t			*print;
+	sem_t			*death;
+	t_philo			*philos;
+}	t_data;
 
 
 

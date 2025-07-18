@@ -14,13 +14,15 @@ typedef struct s_philo
 	int			id;
 	int			meals_eaten;
 	long long	last_meal;
+	
 	pid_t		pid;
+
 	t_data		*data;
 }	t_philo;
 
 typedef struct s_data
 {
-	int				nb_philo;
+	int				num_philo;
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
@@ -31,6 +33,7 @@ typedef struct s_data
 	sem_t			*forks;
 	sem_t			*print;
 	sem_t			*death;
+
 	t_philo			*philos;
 }	t_data;
 

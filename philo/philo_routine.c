@@ -34,8 +34,10 @@ void	eat_philo(t_philo *philo)
 		return;
 	}
 
+	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_lock(philo->right_fork);
 	print_status(philo, "has taken a fork 🍴");
+	pthread_mutex_unlock(philo->right_fork);
 	print_status(philo, "is eating 🍽️");
 
 	pthread_mutex_lock(&philo->data->death_check);
@@ -45,8 +47,6 @@ void	eat_philo(t_philo *philo)
 	ft_usleep(philo->data->time_eat, philo->data);
 	philo->meals_eaten++;
 
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
 }
 
 
@@ -69,6 +69,8 @@ void	*philo_routine(void *arg)
 		print_status(philo, "is thinking 🤔");
 		eat_philo(philo);
 		if (philo->data->opt_arg && philo->meals_eaten >= philo->data->opt_arg)
+			break;
+		if(philo->data->num_philo == 1)
 			break;
 		sleep_philo(philo);
 	}

@@ -18,8 +18,6 @@ int	init_data_philo(t_data *data)
 		data->philos[i].data = data;
 		i++;
 	}
-	data->death = 0;
-	data->all_eat = 0;
 	return (1);
 }
 

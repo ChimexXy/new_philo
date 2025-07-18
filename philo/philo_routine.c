@@ -59,11 +59,11 @@ void	sleep_philo(t_philo *philo)
 
 void	*philo_routine(void *arg)
 {
-	t_philo	*philo = (t_philo *)arg;
+	t_philo	*philo;
 
+	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		usleep(1000);
-
 	while (!philo->data->death)
 	{
 		print_status(philo, "is thinking 🤔");

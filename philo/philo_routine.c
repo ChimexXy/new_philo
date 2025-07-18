@@ -33,11 +33,12 @@ void	eat_philo(t_philo *philo)
 		pthread_mutex_unlock(philo->left_fork);
 		return;
 	}
-
 	pthread_mutex_unlock(philo->left_fork);
+
 	pthread_mutex_lock(philo->right_fork);
 	print_status(philo, "has taken a fork 🍴");
 	pthread_mutex_unlock(philo->right_fork);
+
 	print_status(philo, "is eating 🍽️");
 
 	pthread_mutex_lock(&philo->data->death_check);

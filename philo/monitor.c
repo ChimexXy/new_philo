@@ -19,10 +19,11 @@ int	check_philo_death(t_philo *philo)
 
 void	*monitor_routine(void *arg)
 {
-	t_data	*data = (t_data *)arg;
+	t_data	*data;
 	int		i;
 	int		full;
 
+	data = (t_data *)arg;
 	while (!data->death)
 	{
 		i = 0;
@@ -31,13 +32,15 @@ void	*monitor_routine(void *arg)
 		{
 			if (check_philo_death(&data->philos[i]))
 				return (NULL);
+			pthread_mutex_lock(&data->meals_check);
 			if (data->opt_arg && data->philos[i].meals_eaten >= data->opt_arg)
-				full++;
+    			full++;
+			pthread_mutex_unlock(&data->meals_check);
 			i++;
 		}
 		if (data->opt_arg && full == data->num_philo)
 			return (NULL);
-		usleep(1000);
+		usleep(500);
 	}
 	return (NULL);
 }

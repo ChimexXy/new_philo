@@ -68,6 +68,30 @@ int check_argument(int ac, char **av)
 	return (0);
 }
 
+void	free_and_destroy(t_data *data)
+{
+	int i;
+
+	// Destroy forks mutexes
+	if (data->forks)
+	{
+		i = 0;
+		while (i < data->num_philo)
+			pthread_mutex_destroy(&data->forks[i++]);
+		free(data->forks);
+	}
+
+	// Destroy general mutexes
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->death_check);
+	pthread_mutex_destroy(&data->meals_check);
+
+	// Free philos
+	if (data->philos)
+		free(data->philos);
+}
+
+
 int main(int ac, char **av)
 {
 	t_data *data;
@@ -86,5 +110,6 @@ int main(int ac, char **av)
 	if (start_simulation(data))
 		return (1);
 	join_threads(data);
+	free_and_destroy(data);
 	return (0);
 }

@@ -41,6 +41,7 @@ void	init_mutex(t_data *data)
 {
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->death_check, NULL);
+	pthread_mutex_init(&data->meals_check, NULL);
 }
 
 int	initialize_data(t_data *data)

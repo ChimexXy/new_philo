@@ -18,7 +18,6 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	
 	t_data			*data;
 }	t_philo;
 
@@ -38,6 +37,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_mutex_t	death_check;
+	pthread_mutex_t	meals_check;
 
 	t_philo			*philos;
 }	t_data;
@@ -57,11 +57,25 @@ long long	get_time(void);
 //init_data
 
 int	initialize_data(t_data *data);
+void	init_mutex(t_data *data);
+int	init_forks(t_data *data);
+int	init_data_philo(t_data *data);
 
+//monitor
+
+int	check_philo_death(t_philo *philo);
 void	*monitor_routine(void *arg);
+
+//routine
 void	*philo_routine(void *arg);
+void	sleep_philo(t_philo *philo);
+void	eat_philo(t_philo *philo);
+void	ft_usleep(long long time, t_data *data);
+void	print_status(t_philo *philo, char *msg);
+
+//simulation
 void	join_threads(t_data *data);
 int	start_simulation(t_data *data);
-void	print_status(t_philo *philo, char *msg);
+
 
 #endif

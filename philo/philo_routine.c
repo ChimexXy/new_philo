@@ -25,7 +25,7 @@ void    ft_usleep(long long time, t_philo *philo)
 
 	start = get_time();
 	while (!is_dead(philo) && get_time() - start < time)
-		usleep(100);
+		usleep(500);
 }
 void    eat_philo(t_philo *philo)
 {

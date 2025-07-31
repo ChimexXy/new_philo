@@ -47,7 +47,7 @@ void	*monitor_routine(void *arg)
 		}
 		if (data->opt_arg && full == data->num_philo)
 			return (NULL);
-		usleep(100);
+		usleep(500);
 	}
 	return (NULL);
 }

@@ -1,19 +1,26 @@
 #include "philo.h"
 
+void	edit_death(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->death_check);
+	philo->data->death = 1;
+	pthread_mutex_unlock(&philo->data->death_check);
+}
+
 int	check_philo_death(t_philo *philo)
 {
 	long long	now;
 
-	pthread_mutex_lock(&philo->data->death_check);
+	pthread_mutex_lock(&philo->data->meals_check);
 	now = get_time();
 	if (now - philo->last_meal >= philo->data->time_die)
 	{
+		pthread_mutex_unlock(&philo->data->meals_check);
 		print_status(philo, "is died");
-		philo->data->death = 1;
-		pthread_mutex_unlock(&philo->data->death_check);
+		edit_death(philo);
 		return (1);
 	}
-	pthread_mutex_unlock(&philo->data->death_check);
+	pthread_mutex_unlock(&philo->data->meals_check);
 	return (0);
 }
 
@@ -24,7 +31,7 @@ void	*monitor_routine(void *arg)
 	int		full;
 
 	data = (t_data *)arg;
-	while (!data->death)
+	while (data->num_philo)
 	{
 		i = 0;
 		full = 0;
@@ -40,7 +47,7 @@ void	*monitor_routine(void *arg)
 		}
 		if (data->opt_arg && full == data->num_philo)
 			return (NULL);
-		usleep(500);
+		usleep(100);
 	}
 	return (NULL);
 }

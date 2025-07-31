@@ -70,7 +70,7 @@ void	*monitor_routine(void *arg);
 void	*philo_routine(void *arg);
 void	sleep_philo(t_philo *philo);
 void	eat_philo(t_philo *philo);
-void	ft_usleep(long long time, t_data *data);
+void	ft_usleep(long long time, t_philo *philo);
 void	print_status(t_philo *philo, char *msg);
 
 //simulation

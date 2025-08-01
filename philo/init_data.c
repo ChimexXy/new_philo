@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_data.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/01 21:13:29 by mozahnou          #+#    #+#             */
+/*   Updated: 2025/08/01 21:15:37 by mozahnou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	init_data_philo(t_data *data)
 {
-	int i;
+	int	i;
 
 	data->philos = malloc(sizeof(t_philo) * data->num_philo);
 	if (!data->philos)

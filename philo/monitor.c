@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/01 21:14:14 by mozahnou          #+#    #+#             */
+/*   Updated: 2025/08/01 21:16:04 by mozahnou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	edit_death(t_philo *philo)
@@ -41,7 +53,7 @@ void	*monitor_routine(void *arg)
 				return (NULL);
 			pthread_mutex_lock(&data->meals_check);
 			if (data->opt_arg && data->philos[i].meals_eaten >= data->opt_arg)
-    			full++;
+				full++;
 			pthread_mutex_unlock(&data->meals_check);
 			i++;
 		}
@@ -51,4 +63,3 @@ void	*monitor_routine(void *arg)
 	}
 	return (NULL);
 }
-

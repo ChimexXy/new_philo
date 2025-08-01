@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/01 21:14:27 by mozahnou          #+#    #+#             */
+/*   Updated: 2025/08/01 21:21:10 by mozahnou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	select_things(t_data *data, char **av)
@@ -9,38 +21,30 @@ void	select_things(t_data *data, char **av)
 	data->opt_arg = 0;
 	data->all_eat = 0;
 	data->death = 0;
-	if(av[5])
+	if (av[5])
 		data->opt_arg = ft_atoi(av[5]);
 }
 
-int ft_space_num(char c)
+int	is_valid_argument(char *str)
 {
-	if (c == 32 || (c >= 9 && c <= 13) 
-		|| c == '+' || (c >= '0' && c <= '9'))
-		return (0);
-	return (1);
-}
-
-int is_valid_argument(char *str)
-{
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(ft_space_num(str[i]))
+		if (ft_space_num(str[i]))
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int validate_arguments_content(int ac, char **av)
+int	validate_arguments_content(int ac, char **av)
 {
 	int	i;
 
 	i = 1;
-	while(i < ac)
+	while (i < ac)
 	{
 		if (is_valid_argument(av[i]))
 			return (1);
@@ -49,7 +53,7 @@ int validate_arguments_content(int ac, char **av)
 	return (0);
 }
 
-int check_argument(int ac, char **av)
+int	check_argument(int ac, char **av)
 {
 	if (ac != 5 && ac != 6)
 		return (1);
@@ -68,33 +72,9 @@ int check_argument(int ac, char **av)
 	return (0);
 }
 
-void	free_and_destroy(t_data *data)
+int	main(int ac, char **av)
 {
-	int i;
-
-	// Destroy forks mutexes
-	if (data->forks)
-	{
-		i = 0;
-		while (i < data->num_philo)
-			pthread_mutex_destroy(&data->forks[i++]);
-		free(data->forks);
-	}
-
-	// Destroy general mutexes
-	pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&data->death_check);
-	pthread_mutex_destroy(&data->meals_check);
-
-	// Free philos
-	if (data->philos)
-		free(data->philos);
-}
-
-
-int main(int ac, char **av)
-{
-	t_data *data;
+	t_data	*data;
 
 	if (check_argument(ac, av))
 	{
